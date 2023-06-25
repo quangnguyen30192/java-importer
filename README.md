@@ -17,6 +17,8 @@ Plug 'quangnguyen30192/java-importer', { 'for': 'java' }
 Config learn path, which point to your set of source code to learn import lines
 ```vim
 let g:javaImportPluginMonoRepo = $HOME . "/all-your-java-projects"
+let g:installedJavaImportPluginPath = "your-path-to-the-installed-plugins"
+
 ```
 Run JavaSyncImportSources to build import dictionary cache from library
 ```vim
