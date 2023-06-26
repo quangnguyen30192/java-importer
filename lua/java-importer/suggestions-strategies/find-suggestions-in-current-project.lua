@@ -1,17 +1,25 @@
 local split = require('java-importer.suggestions-strategies.helpers').split
 local M = {}
 
+local function buildImportLine(package, classname)
+  local removedPackage = string.gsub(package, "package ", "")
+  local removedSemicolon = string.gsub(removedPackage, ";", "")
+
+  return removedSemicolon .. "." .. classname .. ";"
+end
+
 M.run = function(matches, current_word)
-  local project_data = vim.fn.system('rg -U --with-filename -t java package')
+  local project_data = vim.fn.system("rg -U --with-filename -t java 'package '")
   local suggestions = split(project_data, '\n')
 
   for _, suggestion in ipairs(suggestions) do
-    local tmp = vim.fn.split(suggestion, "/")
-    local names = vim.fn.split(tmp[#tmp], ":")
-    local classname = split(names[1], ".")[1]
+    local dirs = vim.fn.split(suggestion, "/")
+    local arrayOfClassNameAndPackage = vim.fn.split(dirs[#dirs], ":")
+    local classname = split(arrayOfClassNameAndPackage[1], ".")[1]
 
     if current_word == classname then
-      local import_line = string.gsub(names[2], "package ", "") .. "." .. classname
+      local package = arrayOfClassNameAndPackage[2]
+      local import_line = buildImportLine(package, classname)
 
       local found = false
       for _, match in ipairs(matches) do
