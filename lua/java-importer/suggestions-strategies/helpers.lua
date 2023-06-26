@@ -28,4 +28,11 @@ function M.has_value(table, val)
     return false
 end
 
+function M.build_importline(package_line, classname)
+  local removedPackage = string.gsub(package_line, "package ", "")
+  local removedSemicolon = string.gsub(removedPackage, ";", "")
+
+  return removedSemicolon .. "." .. classname .. ";"
+end
+
 return M
