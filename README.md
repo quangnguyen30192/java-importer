@@ -4,7 +4,7 @@ Useful when doing code review, find source of a java symbol without the need of 
 ### Dependencies
 
 ```vim
-Plug 'vijaymarupudi/nvim-fzf'
+Plug 'nvim-telescope/telescope.nvim'
 ```
 
 ### Using [vim-plug](https://github.com/junegunn/vim-plug)
